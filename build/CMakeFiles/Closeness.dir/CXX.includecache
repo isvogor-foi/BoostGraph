@@ -1,0 +1,40 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/ivan/dev/eclipse/workspace/BoostGraph/Closeness.cpp
+iostream
+-
+iomanip
+-
+boost/graph/undirected_graph.hpp
+-
+boost/graph/exterior_property.hpp
+-
+boost/graph/floyd_warshall_shortest.hpp
+-
+boost/graph/closeness_centrality.hpp
+-
+boost/graph/property_maps/constant_property_map.hpp
+-
+boost/graph/graphml.hpp
+-
+helper.hpp
+/home/ivan/dev/eclipse/workspace/BoostGraph/helper.hpp
+
+/home/ivan/dev/eclipse/workspace/BoostGraph/helper.hpp
+string
+-
+sstream
+-
+map
+-
+algorithm
+-
+boost/graph/properties.hpp
+-
+

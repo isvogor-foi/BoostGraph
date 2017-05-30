@@ -1,0 +1,1 @@
+/usr/bin/c++      CMakeFiles/Closeness2.dir/Closeness2.cpp.o  -o Closeness2 -rdynamic -lboost_graph 

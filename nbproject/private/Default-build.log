@@ -1,0 +1,20 @@
+Scanning dependencies of target FindCenter
+[ 10%] Building CXX object CMakeFiles/FindCenter.dir/FindCenter.cpp.o
+[ 20%] Linking CXX executable FindCenter
+[ 20%] Built target FindCenter
+Scanning dependencies of target ConstructGraph
+[ 30%] Building CXX object CMakeFiles/ConstructGraph.dir/CreateGraph.cpp.o
+[ 40%] Linking CXX executable ConstructGraph
+[ 40%] Built target ConstructGraph
+Scanning dependencies of target Closeness
+[ 50%] Building CXX object CMakeFiles/Closeness.dir/Closeness.cpp.o
+[ 60%] Linking CXX executable Closeness
+[ 60%] Built target Closeness
+Scanning dependencies of target Closeness2
+[ 70%] Building CXX object CMakeFiles/Closeness2.dir/Closeness2.cpp.o
+[ 80%] Linking CXX executable Closeness2
+[ 80%] Built target Closeness2
+Scanning dependencies of target Dijkstra
+[ 90%] Building CXX object CMakeFiles/Dijkstra.dir/Dijkstra.cpp.o
+[100%] Linking CXX executable Dijkstra
+[100%] Built target Dijkstra

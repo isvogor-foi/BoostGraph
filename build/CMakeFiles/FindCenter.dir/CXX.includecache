@@ -1,0 +1,38 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/ivan/dev/eclipse/workspace/BoostGraph/FindCenter.cpp
+iostream
+-
+iomanip
+-
+algorithm
+-
+FindCenter.h
+/home/ivan/dev/eclipse/workspace/BoostGraph/FindCenter.h
+
+/home/ivan/dev/eclipse/workspace/BoostGraph/FindCenter.h
+boost/graph/undirected_graph.hpp
+-
+boost/graph/exterior_property.hpp
+-
+boost/graph/floyd_warshall_shortest.hpp
+-
+boost/graph/dijkstra_shortest_paths.hpp
+-
+boost/graph/closeness_centrality.hpp
+-
+boost/graph/property_maps/constant_property_map.hpp
+-
+boost/graph/graphml.hpp
+-
+boost/graph/graphviz.hpp
+-
+boost/graph/copy.hpp
+-
+

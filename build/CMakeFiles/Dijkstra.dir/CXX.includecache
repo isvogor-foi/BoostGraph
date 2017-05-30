@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/ivan/dev/eclipse/workspace/BoostGraph/Dijkstra.cpp
+boost/config.hpp
+-
+boost/graph/adjacency_list.hpp
+-
+boost/graph/dijkstra_shortest_paths.hpp
+-
+boost/graph/graph_traits.hpp
+-
+boost/graph/iteration_macros.hpp
+-
+boost/graph/properties.hpp
+-
+boost/property_map/property_map.hpp
+-
+iostream
+-
+utility
+-
+vector
+-
+

@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/ivan/dev/eclipse/workspace/BoostGraph/CreateGraph.cpp
+CreateGraph.h
+/home/ivan/dev/eclipse/workspace/BoostGraph/CreateGraph.h
+iostream
+-
+boost/graph/adjacency_list.hpp
+-
+boost/graph/directed_graph.hpp
+-
+boost/graph/undirected_graph.hpp
+-
+
+/home/ivan/dev/eclipse/workspace/BoostGraph/CreateGraph.h
+
