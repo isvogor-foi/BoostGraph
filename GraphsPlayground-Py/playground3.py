@@ -8,7 +8,7 @@ class Graphs:
     # points = np.random.random((30, 2)) * 4
     # g, pos = triangulation(points, type="delaunay")
     # g.save("graph-output.xml")
-    g = load_graph("graph-output.xml")
+    g = load_graph("graph-li.xml")
     pos = fruchterman_reingold_layout(g)
     weight = g.new_edge_property("double")
 

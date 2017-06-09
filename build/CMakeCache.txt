@@ -183,6 +183,9 @@ ConstructGraph_BINARY_DIR:STATIC=/home/ivan/dev/eclipse/workspace/BoostGraph/bui
 //Value Computed by CMake
 ConstructGraph_SOURCE_DIR:STATIC=/home/ivan/dev/eclipse/workspace/BoostGraph
 
+//Dependencies for the target
+graph_ops_LIB_DEPENDS:STATIC=general;/usr/lib/x86_64-linux-gnu/libboost_graph.so;
+
 
 ########################
 # INTERNAL cache entries

@@ -60,39 +60,39 @@ CMAKE_SOURCE_DIR = /home/ivan/dev/eclipse/workspace/BoostGraph
 CMAKE_BINARY_DIR = /home/ivan/dev/eclipse/workspace/BoostGraph/build
 
 #=============================================================================
-# Target rules for target CMakeFiles/FindCenter.dir
+# Target rules for target CMakeFiles/graph_ops.dir
 
 # All Build rule for target.
-CMakeFiles/FindCenter.dir/all:
-	$(MAKE) -f CMakeFiles/FindCenter.dir/build.make CMakeFiles/FindCenter.dir/depend
-	$(MAKE) -f CMakeFiles/FindCenter.dir/build.make CMakeFiles/FindCenter.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ivan/dev/eclipse/workspace/BoostGraph/build/CMakeFiles --progress-num=9,10 "Built target FindCenter"
-.PHONY : CMakeFiles/FindCenter.dir/all
+CMakeFiles/graph_ops.dir/all:
+	$(MAKE) -f CMakeFiles/graph_ops.dir/build.make CMakeFiles/graph_ops.dir/depend
+	$(MAKE) -f CMakeFiles/graph_ops.dir/build.make CMakeFiles/graph_ops.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ivan/dev/eclipse/workspace/BoostGraph/build/CMakeFiles --progress-num=9,10 "Built target graph_ops"
+.PHONY : CMakeFiles/graph_ops.dir/all
 
 # Include target in all.
-all: CMakeFiles/FindCenter.dir/all
+all: CMakeFiles/graph_ops.dir/all
 
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/FindCenter.dir/rule: cmake_check_build_system
+CMakeFiles/graph_ops.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/ivan/dev/eclipse/workspace/BoostGraph/build/CMakeFiles 2
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/FindCenter.dir/all
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/graph_ops.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/ivan/dev/eclipse/workspace/BoostGraph/build/CMakeFiles 0
-.PHONY : CMakeFiles/FindCenter.dir/rule
+.PHONY : CMakeFiles/graph_ops.dir/rule
 
 # Convenience name for target.
-FindCenter: CMakeFiles/FindCenter.dir/rule
+graph_ops: CMakeFiles/graph_ops.dir/rule
 
-.PHONY : FindCenter
-
-# clean rule for target.
-CMakeFiles/FindCenter.dir/clean:
-	$(MAKE) -f CMakeFiles/FindCenter.dir/build.make CMakeFiles/FindCenter.dir/clean
-.PHONY : CMakeFiles/FindCenter.dir/clean
+.PHONY : graph_ops
 
 # clean rule for target.
-clean: CMakeFiles/FindCenter.dir/clean
+CMakeFiles/graph_ops.dir/clean:
+	$(MAKE) -f CMakeFiles/graph_ops.dir/build.make CMakeFiles/graph_ops.dir/clean
+.PHONY : CMakeFiles/graph_ops.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/graph_ops.dir/clean
 
 .PHONY : clean
 
@@ -167,6 +167,43 @@ CMakeFiles/Closeness.dir/clean:
 
 # clean rule for target.
 clean: CMakeFiles/Closeness.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/graph_test.dir
+
+# All Build rule for target.
+CMakeFiles/graph_test.dir/all: CMakeFiles/graph_ops.dir/all
+	$(MAKE) -f CMakeFiles/graph_test.dir/build.make CMakeFiles/graph_test.dir/depend
+	$(MAKE) -f CMakeFiles/graph_test.dir/build.make CMakeFiles/graph_test.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ivan/dev/eclipse/workspace/BoostGraph/build/CMakeFiles --progress-num=11,12 "Built target graph_test"
+.PHONY : CMakeFiles/graph_test.dir/all
+
+# Include target in all.
+all: CMakeFiles/graph_test.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/graph_test.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ivan/dev/eclipse/workspace/BoostGraph/build/CMakeFiles 4
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/graph_test.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ivan/dev/eclipse/workspace/BoostGraph/build/CMakeFiles 0
+.PHONY : CMakeFiles/graph_test.dir/rule
+
+# Convenience name for target.
+graph_test: CMakeFiles/graph_test.dir/rule
+
+.PHONY : graph_test
+
+# clean rule for target.
+CMakeFiles/graph_test.dir/clean:
+	$(MAKE) -f CMakeFiles/graph_test.dir/build.make CMakeFiles/graph_test.dir/clean
+.PHONY : CMakeFiles/graph_test.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/graph_test.dir/clean
 
 .PHONY : clean
 

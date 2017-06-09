@@ -6,16 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/home/ivan/dev/eclipse/workspace/BoostGraph/FindCenter.cpp
-iostream
--
-iomanip
--
-algorithm
--
-FindCenter.h
-/home/ivan/dev/eclipse/workspace/BoostGraph/FindCenter.h
-
 /home/ivan/dev/eclipse/workspace/BoostGraph/FindCenter.h
 boost/graph/undirected_graph.hpp
 -
@@ -37,4 +27,10 @@ boost/graph/copy.hpp
 -
 streambuf
 -
+
+/home/ivan/dev/eclipse/workspace/BoostGraph/graph_test.cpp
+iostream
+-
+FindCenter.h
+/home/ivan/dev/eclipse/workspace/BoostGraph/FindCenter.h
 

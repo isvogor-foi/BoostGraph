@@ -17,6 +17,7 @@
 #include <boost/graph/graphml.hpp>
 #include <boost/graph/graphviz.hpp>
 #include <boost/graph/copy.hpp>
+#include <streambuf>
 
 // define graph properties: weight and name
 typedef float Weight;
@@ -55,16 +56,31 @@ typedef ClosenessProperty::map_type ClosenessMap;
 
 using namespace boost;
 
+
 namespace graph_buzz{
+
+	struct membuf : std::streambuf
+	{
+		membuf(char* begin, char* end) {
+			this->setg(begin, begin, end);
+		}
+	};
+
 	class GraphOperations {
 	public:
-		void WriteGraph(const Graph& g, const std::string& filename);
+		void WriteGraphToFile(const Graph& g, const std::string& filename);
+		std::string WriteGraphToString(const Graph& g);
 		void OpenFromXML(Graph& g, dynamic_properties& dp, const std::string& filename);
+		void OpenFromString(Graph& g, dynamic_properties& dp, char buffer []);
 		void SetNames(Graph& g, NameMap& nameMap);
 		void SetWeights(Graph& g, float weight);
 		void PrintGraphProperties(Graph& g, NameMap& nameMap, DistanceMap& distanceMap);
-		std::vector< std::pair<int, float> > GetCentralities(Graph& g, NameMap& nameMap, IndexMap& indexMap);
 		void RemoveEdges(Graph &g);
+		std::string CreateTree(std::string text);
+		std::string SayHello();
+	private:
+		std::vector< std::pair<int, float> > GetCentralities(Graph& g, NameMap& nameMap, IndexMap& indexMap);
 	};
 }
+
 

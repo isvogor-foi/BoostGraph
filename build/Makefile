@@ -111,17 +111,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named FindCenter
+# Target rules for targets named graph_ops
 
 # Build rule for target.
-FindCenter: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 FindCenter
-.PHONY : FindCenter
+graph_ops: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 graph_ops
+.PHONY : graph_ops
 
 # fast build rule for target.
-FindCenter/fast:
-	$(MAKE) -f CMakeFiles/FindCenter.dir/build.make CMakeFiles/FindCenter.dir/build
-.PHONY : FindCenter/fast
+graph_ops/fast:
+	$(MAKE) -f CMakeFiles/graph_ops.dir/build.make CMakeFiles/graph_ops.dir/build
+.PHONY : graph_ops/fast
 
 #=============================================================================
 # Target rules for targets named ConstructGraph
@@ -148,6 +148,19 @@ Closeness: cmake_check_build_system
 Closeness/fast:
 	$(MAKE) -f CMakeFiles/Closeness.dir/build.make CMakeFiles/Closeness.dir/build
 .PHONY : Closeness/fast
+
+#=============================================================================
+# Target rules for targets named graph_test
+
+# Build rule for target.
+graph_test: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 graph_test
+.PHONY : graph_test
+
+# fast build rule for target.
+graph_test/fast:
+	$(MAKE) -f CMakeFiles/graph_test.dir/build.make CMakeFiles/graph_test.dir/build
+.PHONY : graph_test/fast
 
 #=============================================================================
 # Target rules for targets named Closeness2
@@ -289,7 +302,7 @@ FindCenter.o: FindCenter.cpp.o
 
 # target to build an object file
 FindCenter.cpp.o:
-	$(MAKE) -f CMakeFiles/FindCenter.dir/build.make CMakeFiles/FindCenter.dir/FindCenter.cpp.o
+	$(MAKE) -f CMakeFiles/graph_ops.dir/build.make CMakeFiles/graph_ops.dir/FindCenter.cpp.o
 .PHONY : FindCenter.cpp.o
 
 FindCenter.i: FindCenter.cpp.i
@@ -298,7 +311,7 @@ FindCenter.i: FindCenter.cpp.i
 
 # target to preprocess a source file
 FindCenter.cpp.i:
-	$(MAKE) -f CMakeFiles/FindCenter.dir/build.make CMakeFiles/FindCenter.dir/FindCenter.cpp.i
+	$(MAKE) -f CMakeFiles/graph_ops.dir/build.make CMakeFiles/graph_ops.dir/FindCenter.cpp.i
 .PHONY : FindCenter.cpp.i
 
 FindCenter.s: FindCenter.cpp.s
@@ -307,8 +320,35 @@ FindCenter.s: FindCenter.cpp.s
 
 # target to generate assembly for a file
 FindCenter.cpp.s:
-	$(MAKE) -f CMakeFiles/FindCenter.dir/build.make CMakeFiles/FindCenter.dir/FindCenter.cpp.s
+	$(MAKE) -f CMakeFiles/graph_ops.dir/build.make CMakeFiles/graph_ops.dir/FindCenter.cpp.s
 .PHONY : FindCenter.cpp.s
+
+graph_test.o: graph_test.cpp.o
+
+.PHONY : graph_test.o
+
+# target to build an object file
+graph_test.cpp.o:
+	$(MAKE) -f CMakeFiles/graph_test.dir/build.make CMakeFiles/graph_test.dir/graph_test.cpp.o
+.PHONY : graph_test.cpp.o
+
+graph_test.i: graph_test.cpp.i
+
+.PHONY : graph_test.i
+
+# target to preprocess a source file
+graph_test.cpp.i:
+	$(MAKE) -f CMakeFiles/graph_test.dir/build.make CMakeFiles/graph_test.dir/graph_test.cpp.i
+.PHONY : graph_test.cpp.i
+
+graph_test.s: graph_test.cpp.s
+
+.PHONY : graph_test.s
+
+# target to generate assembly for a file
+graph_test.cpp.s:
+	$(MAKE) -f CMakeFiles/graph_test.dir/build.make CMakeFiles/graph_test.dir/graph_test.cpp.s
+.PHONY : graph_test.cpp.s
 
 # Help Target
 help:
@@ -317,9 +357,10 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... rebuild_cache"
-	@echo "... FindCenter"
+	@echo "... graph_ops"
 	@echo "... ConstructGraph"
 	@echo "... Closeness"
+	@echo "... graph_test"
 	@echo "... Closeness2"
 	@echo "... edit_cache"
 	@echo "... Dijkstra"
@@ -338,6 +379,9 @@ help:
 	@echo "... FindCenter.o"
 	@echo "... FindCenter.i"
 	@echo "... FindCenter.s"
+	@echo "... graph_test.o"
+	@echo "... graph_test.i"
+	@echo "... graph_test.s"
 .PHONY : help
 
 
