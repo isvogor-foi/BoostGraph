@@ -24,7 +24,7 @@ void GraphOperations::WriteGraphToFile(const Graph& g, const std::string& filena
 std::string GraphOperations::WriteGraphToString(const Graph& g)
 {
   std::stringstream stream;
-  boost::write_graphviz(stream, g );
+  boost::write_graphviz(stream, g);
   return stream.str();
 }
 

@@ -5,12 +5,13 @@ import time
 # https://graph-tool.skewed.de/static/doc/generation.html
 
 class Graphs:
-    # points = np.random.random((30, 2)) * 4
-    # g, pos = triangulation(points, type="delaunay")
+    #points = np.random.random((30, 2)) * 4
+    #g, pos = triangulation(points, type="delaunay")
     # g.save("graph-output.xml")
-    g = load_graph("graph-li.xml")
+    g = load_graph("temp.xml")
     pos = fruchterman_reingold_layout(g)
     weight = g.new_edge_property("double")
+    #g.save("temp.xml")
 
     def closeness_graph(self, output=None):
         b = closeness(self.g)
@@ -23,11 +24,11 @@ class Graphs:
         graph_draw(self.g, pos=self.pos, vertex_fill_color=bv, edge_pen_width=be)
 
     def min_spanning_tree(self):
-        for e in g.edges():
-            weight[e] = np.linalg.norm(pos[e.target()].a - pos[e.source()].a)
-        tree = min_spanning_tree(g, weights=weight)
-        u = GraphView(g, efilt=tree)
-        graph_draw(u, pos=pos)
+        for e in self.g.edges():
+            self.weight[e] = np.linalg.norm(self.pos[e.target()].a - self.pos[e.source()].a)
+        tree = min_spanning_tree(self.g, weights=self.weight)
+        u = GraphView(self.g, efilt=tree)
+        graph_draw(u, pos=self.pos)
 
     def all_paths(self, output=None):
         c = closeness(self.g)
@@ -57,6 +58,7 @@ class Graphs:
 
 if __name__ == '__main__':
     graphs = Graphs()
+    #graphs.min_spanning_tree()
     graphs.closeness_graph()
     #graphs.betweenness_graph()
     graphs.all_paths()
