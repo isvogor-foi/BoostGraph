@@ -4,6 +4,8 @@ import numpy as np
 import time
 import itertools
 import random
+from datetime import datetime
+
 
 # https://graph-tool.skewed.de/static/doc/generation.html
 class MyNodes:
@@ -46,52 +48,56 @@ class TreeNode:
         return my_name
 
 class Graphs:
-    #points = np.random.random((30, 2)) * 4
-    #g, pos = triangulation(points, type="delaunay")
-    # g.save("graph-output.xml")
-    #g = load_graph("temp.xml")
-    g = load_graph("/home/ivan/Downloads/temp-graph.xml")
-    pos = fruchterman_reingold_layout(g)
-    weight = g.new_edge_property("double")
-    #g.save("temp.xml")
+    def __init__(self, nodes):
+        self.__points = np.random.random((nodes, 2)) * 4
+        #self.__g, self.__pos_tmp = triangulation(self.__points, type="delaunay")
+
+        #points = np.random.random((self.__nodes, 2)) * 4
+        #g, pos = triangulation(points, type="delaunay")
+        # g.save("graph-output.xml")
+        #g = load_graph("temp.xml")
+        self.__g = load_graph("/home/ivan/Downloads/temp-graph.xml")
+        self.__pos = fruchterman_reingold_layout(self.__g)
+        self.__weight = self.__g.new_edge_property("double")
+        #g.save("temp.xml")
 
     def closeness_graph(self, output=None):
-        b = closeness(self.g)
+        b = closeness(self.__g)
         print("Res: ", b.ma)
-        b = closeness(self.g)
-        graph_draw(self.g, pos=self.pos, output_size=(800, 600), vertex_text=self.g.vertex_index, vertex_fill_color=b, output=output)
+        b = closeness(self.__g)
+        graph_draw(self.__g, pos=self.__pos, output_size=(800, 600), vertex_text=self.__g.vertex_index, vertex_fill_color=b, output=output)
 
     def betweenness_graph(self):
-        bv, be = betweenness(self.g)
+        bv, be = betweenness(self.__g)
         be.a /= be.a.max() / 10
-        graph_draw(self.g, pos=self.pos, vertex_fill_color=bv, edge_pen_width=be)
+        graph_draw(self.__g, pos=self.__pos, vertex_fill_color=bv, edge_pen_width=be)
 
     def min_spanning_tree(self):
-        for e in self.g.edges():
-            self.weight[e] = np.linalg.norm(self.pos[e.target()].a - self.pos[e.source()].a)
-        tree = min_spanning_tree(self.g, weights=self.weight)
-        u = GraphView(self.g, efilt=tree)
-        graph_draw(u, pos=self.pos)
+        for e in self.__g.edges():
+            self.__weight[e] = np.linalg.norm(self.__pos[e.target()].a - self.__pos[e.source()].a)
+        tree = min_spanning_tree(self.__g, weights=self.__weight)
+        u = GraphView(self.__g, efilt=tree)
+        graph_draw(u, pos=self.__pos)
 
     def all_paths(self, output=None):
-        c = closeness(self.g)
-        print("Sorted: ", sorted(c.ma, reverse=True))
-        print("Sorted: ", self.g)
+        c = closeness(self.__g)
+        #print("Sorted: ", sorted(c.ma, reverse=True))
+        #print("Sorted: ", self.g)
         # --- Construct tree
         # TODO: (max) independent vertex set -> it seems it doesn't produce a unique solution (NP hard)
         # TODO: shortest distance_
         #
 
         max_closeness = 11
-        temp = self.g.copy()
+        temp = self.__g.copy()
         edges_list_unique = []
         # remove all edges
-        for edge in self.g.edges():
+        for edge in self.__g.edges():
             temp.remove_edge(edge)
 
         # get a tree with duplicate edges
-        for node in self.g.vertices():
-            vlist, elist = shortest_path(self.g, max_closeness, node)
+        for node in self.__g.vertices():
+            vlist, elist = shortest_path(self.__g, max_closeness, node)
             temp.add_edge_list(elist)
 
         # remove duplicates
@@ -102,43 +108,62 @@ class Graphs:
             else:
                 tree.remove_edge(e)
 
-        graph_draw(tree, pos=self.pos, vertex_text=tree.vertex_index, vertex_fill_color=c, output=output)
+        graph_draw(tree, pos=self.__pos, vertex_text=tree.vertex_index, vertex_fill_color=c, output=output)
+
+    def non_neigbour_vertices(self):
+        c = closeness(self.__g)
+        c_list = []
+        #print("Sorted: ", sorted(c.ma, reverse=True))
+        for i, cls in enumerate(c):
+            c_list.append([i, cls])
+        #print("Sorforted: ", sorted(c_list, key=lambda x: x[1]))
+        c_list = sorted(c_list, key=lambda x: x[1])
+
+        no_duplicate_tree = self.remove_duplicates(self.__g.copy())
+
+        # find n non neigbours in the list of central nodes starting from the least central
+        roots = []
+        roots.append(c_list[0][0])
+
+        for node, cls in c_list:
+            pushit = True
+            for root in roots:
+                if self.are_neighbors(no_duplicate_tree, root, node) or node is root:
+                    pushit = False
+            if pushit:
+                roots.append(node)
+
+        return roots
 
     def new_thing(self):
-        c = closeness(self.g)
+        self.__g = self.remove_duplicates(self.__g.copy())
+        c = closeness(self.__g)
 
-        #for my_list in sorted(my_nodes, reverse=True):
-        #    print("Node: ", my_list.get_node())
+        root_candidates = self.non_neigbour_vertices()
+        root_candidates = self.sorted_by_degree(root_candidates)
 
-        # dual_tree = self.g.copy()
-        # temp_tree = self.g.copy()
-        # for edge in self.g.edges():
-        #     dual_tree.remove_edge(edge)
-        #
-        # self.construct_tree_from_old(dual_tree, temp_tree, 5, 3)
+        print("Root candidates: ", root_candidates)
 
-        edgeless_graph_copy = self.g.copy()
-        for edge in self.g.edges():
+        edgeless_graph_copy = self.__g.copy()
+        for edge in self.__g.edges():
             edgeless_graph_copy.remove_edge(edge)
 
-        depth = 5
-        no_duplicate_tree = self.remove_duplicates(self.g.copy())
-        self.g = self.remove_duplicates(self.g.copy())
-        forest = self.construct_tree_balanced(self.g.copy(), [14,15,5], depth)
+        depth = 8
+
+        #TODO: HERE!!!
+        v_pos = fruchterman_reingold_layout(self.__g)
+        #graph_draw(self.__g, output_size=(1024, 800), pos=v_pos, vertex_text=self.__g.vertex_index)
+        forest = self.construct_tree_balanced(self.__g.copy(), root_candidates[:5], depth)
+
+        #forest = self.construct_tree_balanced(self.g.copy(), [14,15,5], depth)
         #forest = self.construct_tree_balanced(self.g.copy(), [14,18,17], depth)
 
         print("Done with forest generation, drawing...")
-        self.draw_mynode_tree(depth, forest, edgeless_graph_copy)
-
-        ## temp
-        #g2 = self.g.copy()
-        #self.remove_duplicates(g2)
-        # end temp
-
+        #self.draw_mynode_tree(depth, forest, edgeless_graph_copy)
         for tree in forest:
             subgraph, v_prop = self.get_tree(tree, depth)
             #self.remove_duplicates(subgraph)
-            graph_draw(subgraph, pos=fruchterman_reingold_layout(subgraph), vertex_text=v_prop)
+            #graph_draw(subgraph, pos=fruchterman_reingold_layout(subgraph), vertex_text=v_prop)
 
     def remove_duplicates(self, original_graph):
         graph_copy = original_graph.copy()
@@ -155,15 +180,27 @@ class Graphs:
                 taken_list.append(current)
                 taken_list.append(current_reversed)
 
-
-        graph_draw(graph_copy, output_size=(1024, 800), pos=self.pos, vertex_text=graph_copy.vertex_index)
-        res = max_independent_vertex_set(graph_copy)
-        graph_draw(graph_copy, output_size=(1024, 800), pos=self.pos, vertex_fill_color=res, vertex_text=graph_copy.vertex_index)
-
+        #graph_draw(graph_copy, output_size=(1024, 800), pos=self.__pos, vertex_text=graph_copy.vertex_index)
+        #res = max_independent_vertex_set(graph_copy)
+        #graph_draw(graph_copy, output_size=(1024, 800), pos=self.__pos, vertex_fill_color=res, vertex_text=graph_copy.vertex_index)
 
         return graph_copy
 
     # -------------------------------------------------------------------------------
+
+    def sorted_by_degree(self, existing_candidates):
+        d_list = [] # existing_candidates
+
+        for t_vertex in self.__g.vertices():
+            d_list.append([int(t_vertex), t_vertex.out_degree()])
+
+        d_list = [item[0] for item in sorted(d_list, key=lambda x: x[1])]
+
+        for candidate in d_list:
+            if candidate not in existing_candidates:
+                existing_candidates.append(candidate)
+
+        return existing_candidates
 
     def get_tree(self, branch, max_depth):
         current_children_list = branch.get_children()
@@ -182,17 +219,19 @@ class Graphs:
             current_depth += 1
             current_children_list = next_children_list
 
-        subgraph = self.g.copy()
+        subgraph = self.__g.copy()
         v_prop = subgraph.new_vertex_property("string")
 
         # create a subgraph by removing nodes not in the tree
-        for vertex in reversed(sorted(self.g.get_vertices())):
+        for vertex in reversed(sorted(self.__g.get_vertices())):
             if int(vertex) not in subtree_vertices:
                 subgraph.remove_vertex(int(vertex))
             else:
                 v_prop[subgraph.vertex(vertex)] = str(vertex)
 
-        print("ALL: ", subtree_vertices, " v_prop: ", v_prop)
+        #print("ALL: ", subtree_vertices, " v_prop: ", v_prop)
+        print("ALL: ", subtree_vertices)
+
         return subgraph, v_prop
 
     def construct_tree_balanced(self, original_graph, roots, depth):
@@ -257,7 +296,7 @@ class Graphs:
                     next_set.append(c)
             current_set = next_set
         # draw solution
-        graph_draw(original_graph, pos=self.pos, vertex_text=original_graph.vertex_index)
+        graph_draw(original_graph, pos=self.__pos, vertex_text=original_graph.vertex_index)
 
     # -------------------------------------------------------------------------------
 
@@ -292,7 +331,7 @@ class Graphs:
                 for j in children:
                     dual_tree.add_edge(graph1_final[k][i], j)
                 child_index += 1
-        graph_draw(dual_tree, pos=self.pos, vertex_text=dual_tree.vertex_index)
+        graph_draw(dual_tree, pos=self.__pos, vertex_text=dual_tree.vertex_index)
 
     def get_neighbors(self, graph, source):
         neighbors = []
@@ -352,12 +391,16 @@ class Graphs:
 
 
 if __name__ == '__main__':
-    graphs = Graphs()
-    #graphs.min_spanning_tree()
-    graphs.closeness_graph()
-    #graphs.betweenness_graph()
-    graphs.new_thing()
-    graphs.all_paths()
+    for i in range(1, 10):
+        start_time = time.time()
+        graphs = Graphs(i * 10)
+        #graphs.min_spanning_tree()
+        #graphs.closeness_graph()
+        #graphs.betweenness_graph()
+        graphs.new_thing()
+        elapsed_time = time.time() - start_time
+        print("Run: ", i, ", runtime: ", elapsed_time)
+        #graphs.all_paths()
 
 
 
