@@ -49,8 +49,8 @@ class Graphs:
     #points = np.random.random((30, 2)) * 4
     #g, pos = triangulation(points, type="delaunay")
     # g.save("graph-output.xml")
-    g = load_graph("temp.xml")
-    #g = load_graph("/home/ivan/Downloads/temp-graph.xml")
+    #g = load_graph("temp.xml")
+    g = load_graph("/home/ivan/Downloads/temp-graph.xml")
     pos = fruchterman_reingold_layout(g)
     weight = g.new_edge_property("double")
     #g.save("temp.xml")
@@ -78,6 +78,9 @@ class Graphs:
         print("Sorted: ", sorted(c.ma, reverse=True))
         print("Sorted: ", self.g)
         # --- Construct tree
+        # TODO: (max) independent vertex set -> it seems it doesn't produce a unique solution (NP hard)
+        # TODO: shortest distance_
+        #
 
         max_closeness = 11
         temp = self.g.copy()
@@ -120,7 +123,10 @@ class Graphs:
 
         depth = 5
         no_duplicate_tree = self.remove_duplicates(self.g.copy())
-        forest = self.construct_tree_balanced(no_duplicate_tree, [18, 15], depth)
+        self.g = self.remove_duplicates(self.g.copy())
+        forest = self.construct_tree_balanced(self.g.copy(), [14,15,5], depth)
+        #forest = self.construct_tree_balanced(self.g.copy(), [14,18,17], depth)
+
         print("Done with forest generation, drawing...")
         self.draw_mynode_tree(depth, forest, edgeless_graph_copy)
 
@@ -149,7 +155,12 @@ class Graphs:
                 taken_list.append(current)
                 taken_list.append(current_reversed)
 
-        #graph_draw(graph_copy, pos=self.pos, vertex_text=graph_copy.vertex_index)
+
+        graph_draw(graph_copy, output_size=(1024, 800), pos=self.pos, vertex_text=graph_copy.vertex_index)
+        res = max_independent_vertex_set(graph_copy)
+        graph_draw(graph_copy, output_size=(1024, 800), pos=self.pos, vertex_fill_color=res, vertex_text=graph_copy.vertex_index)
+
+
         return graph_copy
 
     # -------------------------------------------------------------------------------
@@ -170,18 +181,6 @@ class Graphs:
             # go to next level depth
             current_depth += 1
             current_children_list = next_children_list
-        # while current_depth < max_depth:
-        #     # draw verices
-        #     for current_child in current_children_list:
-        #         all.append(current_child.get_id())
-        #
-        #     # go to next level depth
-        #     current_depth += 1
-        #     next_children_list = []
-        #     for current_child in current_children_list:
-        #         for child in current_child.get_children():
-        #             next_children_list.append(child)
-        #     current_children_list = next_children_list
 
         subgraph = self.g.copy()
         v_prop = subgraph.new_vertex_property("string")
